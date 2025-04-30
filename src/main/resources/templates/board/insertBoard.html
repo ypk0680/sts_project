@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>게시글 등록</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://i.namu.wiki/i/f5b4YTvb5ZwG7H4sdYgnF2_PLKA1eHh082B6sWEHyICaiDhybTG9v_Oq4CXkKIVk_LvT7OL9mb-0Z2cXwdTtScDTbmVYM3Z32A_V-CuhYDko22iqL_euwWvw35f7GcH_ezUS-2caTgx46VfQxlBRUQ.webp'); /* 헬로키티 배경 */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 40px 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e91e63;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px white;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 700px;
+            background-color: rgba(255, 255, 255, 0.9); /* 투명한 흰 배경 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #ffe4ec;
+            color: #333;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 95%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #e91e63;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #d81b60;
+        }
+
+        .footer-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>게시글 등록</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <th>제목</th>
+                <td><input type="text" name="title"></td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td><input type="text" name="id"></td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td><textarea name="content" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <th>파일</th>
+                <td><input type="file" name="files" multiple></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="게시글 등록">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <a th:href="@{/board/boardList}" class="footer-link">글 목록으로 이동</a>
+
+</body>
+</html>

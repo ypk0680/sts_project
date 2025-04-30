@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>게시글 목록</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 1000px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0e6d2;
+            color: #333;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        h3 a {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        h3 a:hover {
+            background-color: #45a049;
+        }
+		.register-btn {
+		        padding: 10px 20px;
+		        background-color: #62766d; /* 로즈 핑크 */
+		        color: #ffffff;
+		        text-decoration: none;
+		        border-radius: 6px;
+		        font-weight: bold;
+		        transition: background-color 0.3s ease;
+		    }
+
+		    .register-btn:hover {
+		        background-color: #d81b60; /* 약간 더 진한 핑크 hover 효과 */
+		    }
+    </style>
+</head>
+<body>
+    <h1>게시글 목록</h1>
+    <hr>
+
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일자</th>
+            <th>조회수</th>
+        </tr>
+        <tr th:each="board : ${boardList}">
+            <td th:text="${board.articleNo}"></td>
+            <td>
+                <a th:href="@{/board/getBoard(articleNo=${board.articleNo})}" th:text="${board.title}"></a>
+            </td>
+            <td th:text="${board.id}"></td>
+            <td th:text="${board.writeDate}"></td>
+            <td th:text="${board.cnt}"></td>
+        </tr>
+    </table>
+
+    <h3>
+        <a th:href="@{/board/insertBoard}" class="register-btn">게시글 등록</a>
+    </h3>
+</body>
+</html>
