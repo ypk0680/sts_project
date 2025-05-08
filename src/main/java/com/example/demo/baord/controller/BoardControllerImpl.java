@@ -111,7 +111,7 @@ public class BoardControllerImpl implements BoardController{
 		// TODO Auto-generated method stub
 		service.updateBoard(dto);
 		model.addAttribute("message", "게시글이 수정되었습니다.");
-		model.addAttribute("redirectUrl", "board/getBoard?articleNo=" + dto.getArticleNo());
+		model.addAttribute("redirectUrl", "/board/getBoard?articleNo=" + dto.getArticleNo());
 		return "common/alert";
 	}
 
@@ -123,10 +123,10 @@ public class BoardControllerImpl implements BoardController{
 		
 		if(result >= 1) {
 			model.addAttribute("message", "게시글이 삭제되었습니다.");
-			model.addAttribute("redirectUrl", "board/boardList");
+			model.addAttribute("redirectUrl", "/board/boardList");
 		} else {
 			model.addAttribute("message", "게시글이 삭제되지 않았습니다.");
-			model.addAttribute("redirectUrl", "board/getBoard?articleNo=" + articleNo);
+			model.addAttribute("redirectUrl", "/board/getBoard?articleNo=" + articleNo);
 		}
 		
 		
