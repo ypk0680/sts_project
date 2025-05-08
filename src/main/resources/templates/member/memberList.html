@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>레트로 회원 정보 출력창</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 기본 배경 및 텍스트 스타일 */
+    body {
+      background-color: black;
+      color: #0f0;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* 부트 메시지 */
+    #bootLog {
+      white-space: pre-line;
+      color: #0f0;
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    /* 제목 */
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    /* 테이블 스타일 */
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    th, td {
+      border: 1px solid #0f0;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #003300;
+    }
+
+    a {
+      color: #00ff99;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-shadow: 0 0 5px #0f0;
+    }
+
+    /* 입력창 스타일 */
+    .terminal-line {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .terminal-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #0f0;
+      color: #0f0;
+      font-size: 16px;
+      outline: none;
+      width: 300px;
+    }
+
+    .cursor {
+      animation: blink 1s step-start infinite;
+      color: #0f0;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* 반응형 */
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .terminal-input {
+        width: 200px;
+      }
+    }
+
+    /* 화면 전환 */
+    #mainContent {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    #mainContent.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body onload="bootTerminal()">
+
+  <!-- 배경음악 -->
+  <audio id="bgm" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+  <audio id="beep" src="https://www.soundjay.com/button/sounds/beep-07.mp3" preload="auto"></audio>
+
+  <!-- 부트 텍스트 -->
+  <div id="bootLog"></div>
+
+  <!-- 메인 콘텐츠 -->
+  <div id="mainContent" style="display:none;">
+    <h1>📟 MEMBER DATABASE</h1>
+
+    <table>
+      <tr>
+        <th>아이디</th>
+        <th>암호</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>가입일자</th>
+        <th>삭제</th>
+      </tr>
+
+      <tr th:if="${memberList == null or #lists.isEmpty(memberList)}">
+        <td colspan="6"><b>등록된 회원이 없습니다.</b></td>
+      </tr>
+
+      <tr th:each="mem : ${memberList}">
+        <td><a th:href="@{/member/detailMember(id=${mem.id})}" th:text="${mem.id}" onclick="playBeep()"></a></td>
+        <td th:text="${mem.pwd}"></td>
+        <td th:text="${mem.name}"></td>
+        <td th:text="${mem.email}"></td>
+        <td th:text="${mem.joinDate}"></td>
+        <td><a th:href="@{/member/deleteMember(id=${mem.id})}" onclick="playBeep()">삭제</a></td>
+      </tr>
+    </table>
+
+    <!-- 터미널 입력 -->
+    <div class="terminal-line">
+      <input type="text" class="terminal-input" id="terminalInput" placeholder="> 명령어 입력...">
+      <span class="cursor">█</span>
+    </div>
+  </div>
+
+  <!-- 스크립트 -->
+  <script>
+    const bootMessages = [
+      "Booting system...",
+      "Loading terminal interface...",
+      "Accessing MEMBER DATABASE...",
+      "Authentication granted.",
+      "Welcome."
+    ];
+
+    async function bootTerminal() {
+      const log = document.getElementById("bootLog");
+      const main = document.getElementById("mainContent");
+
+      for (let i = 0; i < bootMessages.length; i++) {
+        log.textContent += bootMessages[i] + "\n";
+        await new Promise(r => setTimeout(r, 700));
+      }
+
+      log.style.display = "none";
+      main.style.display = "block";
+      setTimeout(() => main.classList.add("visible"), 50);
+      document.getElementById("terminalInput").focus();
+    }
+
+    // 효과음 재생
+    function playBeep() {
+      document.getElementById("beep").play();
+    }
+
+    // 입력창 엔터 반응
+    document.getElementById("terminalInput").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        const input = this.value.trim();
+        if (input) {
+          alert("입력된 명령어: " + input); // 예시 기능
+        }
+        this.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
