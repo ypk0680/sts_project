@@ -18,8 +18,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class FileDTO {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="file_imageNo")
-	@SequenceGenerator(name="file_imageNo", sequenceName="file_imageNo", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int imageNo;
 	private int articleNo;
 	private String fileName;

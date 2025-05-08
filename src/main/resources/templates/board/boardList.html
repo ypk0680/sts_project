@@ -10,7 +10,9 @@
             margin: 0;
             padding: 20px;
         }
-
+	#main{
+		text-align: right;
+	}
         h1 {
             text-align: center;
             color: #333;
@@ -56,7 +58,7 @@
         }
 
         h3 {
-            text-align: center;
+            text-align: right;
             margin-top: 30px;
         }
 
@@ -85,12 +87,22 @@
 		    .register-btn:hover {
 		        background-color: #d81b60; /* 약간 더 진한 핑크 hover 효과 */
 		    }
+			.double-line {
+			  border: 0;
+			  border-top: 3px double #000; /* 두꺼운 이중선, 색상은 검정(#000) */
+			  margin: 20px 0;
+			}
     </style>
 </head>
 <body>
-    <h1>게시글 목록</h1>
-    <hr>
-
+    <h1>게시글 목록</h1class="double-line">
+    <hr class="double-line">
+	<div id="main">
+	<a th:href="@{/main/main}">홈</a>
+	<h3>
+	     <a th:href="@{/board/insertBoard}" class="register-btn">게시글 등록</a>
+	 </h3>
+	</div>
     <table>
         <tr>
             <th>번호</th>
@@ -110,8 +122,5 @@
         </tr>
     </table>
 
-    <h3>
-        <a th:href="@{/board/insertBoard}" class="register-btn">게시글 등록</a>
-    </h3>
 </body>
 </html>
