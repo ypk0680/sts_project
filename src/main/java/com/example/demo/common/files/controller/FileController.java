@@ -18,7 +18,7 @@ import org.springframework.web.util.UriUtils;
 
 @RestController
 public class FileController {
-	public static final String FILE_REPO = "/home/ubuntu/app/final/build/libs/file_repo";
+	public static final String FILE_REPO = "/home/ubuntu/app/build/libs/file_repo";
 	
 	@GetMapping("/files/{articleNo}/{fileName}")
 	public ResponseEntity<Resource> downloadFile(
